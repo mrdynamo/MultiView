@@ -5,6 +5,7 @@ services:
     build: .
     container_name: multiview
     ports:
+      - "9292:9292"
       - "9393:9393"
     environment:
       - BACKEND_PORT=9292
