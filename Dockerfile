@@ -33,7 +33,8 @@ RUN npm run build
 WORKDIR /app
 
 # Environment variables with defaults
-ENV PORT=9292
+ENV BACKEND_PORT=9292
+ENV FRONTEND_PORT=9393
 ENV ENCODER_PREFERENCE=auto
 ENV M3U_SOURCE=http://127.0.0.1:9191/output/m3u?direct=true
 ENV IDLE_TIMEOUT=60

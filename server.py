@@ -1068,7 +1068,7 @@ async def home(in1: str | None = None, in2: str | None = None):
 @app.get("/control/start")
 async def control_start(in1: str, in2: str):
     start_live(in1, in2)
-    port = os.getenv('PORT', '9292')
+    port = os.getenv('BACKEND_PORT', os.getenv('PORT', '9292'))
     return JSONResponse({
         "status": "live",
         "stream_url": f"http://localhost:{port}/stream"
@@ -1091,7 +1091,7 @@ async def control_swap():
 @app.get("/control/status")
 async def status():
     running = PROC is not None and PROC.poll() is None
-    port = os.getenv('PORT', '9292')
+    port = os.getenv('BACKEND_PORT', os.getenv('PORT', '9292'))
 
     # Get connected client count
     with BROADCAST_LOCK:
