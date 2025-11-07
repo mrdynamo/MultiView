@@ -10,24 +10,19 @@ RUN npm run build
 FROM python:3.11-slim AS backend-builder
 WORKDIR /build
 COPY server.py .
-RUN python -m pip install --upgrade pip && \
-    pip install --no-cache-dir --target ./packages fastapi uvicorn[standard] pyzmq
+RUN pip install --no-cache-dir --target ./packages fastapi uvicorn[standard] pyzmq
 
 # Stage 3: Final runtime image
 FROM linuxserver/ffmpeg:latest
 WORKDIR /app
 
-# Install Node.js and minimal runtime dependencies
+# Install minimal runtime dependencies
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     python3 \
-    python3-pip \
+    python3-distutils \
     fonts-dejavu-core \
-    curl \
-    ca-certificates \
-    gnupg \
-    && curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
-    && apt-get install -y --no-install-recommends nodejs \
+    nodejs \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy built artifacts from previous stages
