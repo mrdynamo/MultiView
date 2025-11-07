@@ -36,8 +36,8 @@ else
   info "No DOCKERHUB_USER/DOCKERHUB_PASS provided. Ensure you're logged in with 'docker login' before pushing."
 fi
 
-info "Building combined image (tag: ${LOCAL_IMAGE}) from ${BUILD_DIR}"
-docker build -t "${LOCAL_IMAGE}" "${BUILD_DIR}"
+info "Building combined image (tag: ${LOCAL_IMAGE}) from ${BUILD_DIR} with no cache"
+docker build --no-cache --pull -t "${LOCAL_IMAGE}" "${BUILD_DIR}"
 
 info "Tagging image for Docker Hub repository ${REPO}:${IMAGE_TAG}"
 docker tag "${LOCAL_IMAGE}" "${REPO}:${IMAGE_TAG}"
